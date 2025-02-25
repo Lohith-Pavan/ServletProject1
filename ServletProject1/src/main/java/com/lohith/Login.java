@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -28,9 +30,10 @@ public class Login extends HttpServlet {
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				request.setAttribute("username", rs.getString(1));
-				request.setAttribute("email", rs.getString(2));
-				request.setAttribute("tel", rs.getString(3));
+				HttpSession hs = request.getSession();
+				hs.setAttribute("username", rs.getString(1));
+				hs.setAttribute("email", rs.getString(3));
+				hs.setAttribute("tel", rs.getInt(4));
 				RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
 				rd.forward(request, response);
 			}

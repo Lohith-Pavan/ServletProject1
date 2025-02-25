@@ -15,6 +15,5 @@
  <h1>name : <%=name %></h1><br>
  <h1>email: <%=email %></h1><br>
  <h1>phone number: <%=phonenumber %></h1>
- <a href = "profile2.jsp">go to next page</a>
 </body>
 </html>

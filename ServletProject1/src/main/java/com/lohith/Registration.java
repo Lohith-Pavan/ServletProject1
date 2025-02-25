@@ -21,14 +21,14 @@ public class Registration extends HttpServlet {
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
-		String phonenumber = request.getParameter("tel");
+		int phonenumber = Integer.parseInt(request.getParameter("tel"));
 		String query = "insert into user_details values (?,?,?,?)";
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, name);
 			ps.setString(2, password);
 			ps.setString(3, email);
-			ps.setString(4, phonenumber);
+			ps.setInt(4, phonenumber);
 			int i = ps.executeUpdate();
 			if(i>0) {
 //				pw.print("done");

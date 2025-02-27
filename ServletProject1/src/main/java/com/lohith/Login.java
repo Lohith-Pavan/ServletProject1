@@ -30,9 +30,10 @@ public class Login extends HttpServlet {
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				request.setAttribute("username", rs.getString(1));
-				request.setAttribute("email", rs.getString(3));
-				request.setAttribute("tel", rs.getInt(4));
+				HttpSession hs = request.getSession();
+				hs.setAttribute("username", rs.getString(1));
+				hs.setAttribute("email", rs.getString(3));
+				hs.setAttribute("tel", rs.getInt(4));
 				RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
 				rd.forward(request, response);
 			}

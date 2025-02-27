@@ -6,41 +6,32 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Login extends HttpServlet {
+public class Delete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Connection con  = Dbcon.getCon();
+		String name = request.getParameter("uname");
 		PrintWriter pw = response.getWriter();
-		String name = request.getParameter("username");
-		String password = request.getParameter("password");
-		String query = "select * from user_details where user_name = ? and password = ?";
+		response.setContentType("text/html");
+		Connection con = Dbcon.getCon();
+		
+		String query = "delete from user_details where user_name = ?";
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, name);
-			ps.setString(2, password);
-			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
-				request.setAttribute("username", rs.getString(1));
-				request.setAttribute("email", rs.getString(3));
-				request.setAttribute("tel", rs.getInt(4));
-				RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
+			int i = ps.executeUpdate();
+			if(i>0) {
+				RequestDispatcher rd = request.getRequestDispatcher("DisplayAll");
 				rd.forward(request, response);
 			}
 			else {
-				response.setContentType("text/html");
-				RequestDispatcher rd = request.getRequestDispatcher("login.html");
-				rd.include(request, response);
-				pw.print("<h2>Login Unsuccessful</h2>");
+				pw.print("<h2>Deletion is not done</h2>");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

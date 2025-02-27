@@ -8,9 +8,9 @@
 </head>
 <body>
    <%
-        String name = (String)session.getAttribute("username");
-        String email = (String)session.getAttribute("email");
-        Integer phonenumber = (Integer)session.getAttribute("tel");
+        String name = (String)request.getAttribute("username");
+        String email = (String)request.getAttribute("email");
+        Integer phonenumber = (Integer)request.getAttribute("tel");
    %>
  <h1>name : <%=name %></h1><br>
  <h1>email: <%=email %></h1><br>

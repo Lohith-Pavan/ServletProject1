@@ -79,4 +79,14 @@
     <servlet-name>Delete</servlet-name>
     <url-pattern>/Delete</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DisplayTransactions</display-name>
+    <servlet-name>DisplayTransactions</servlet-name>
+    <servlet-class>com.lohith.DisplayTransactions</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DisplayTransactions</servlet-name>
+    <url-pattern>/DisplayTransactions</url-pattern>
+  </servlet-mapping>
 </web-app>

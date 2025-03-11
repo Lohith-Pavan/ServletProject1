@@ -6,20 +6,47 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 public class DisplayTransactions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter pw = response.getWriter();
 		String tpage = request.getParameter("page");
 		int page = Integer.parseInt(tpage);
 		int total = 10;
-		if(page == 1) {
-			page = 1;
-		}else {
-			page = (page - 1) * total + 1;
+		List<TransactionDto> txn = TransactionDao.getTransactions(page, total);
+		pw.print("<table border = 1>");
+		pw.print("<tr>");
+		pw.print("<th>Txn_Id</th>");
+		pw.print("<th>Txn_Date</th>");
+		pw.print("<th>source_Id</th>");
+		pw.print("<th>Destination_Id</th>");
+		pw.print("<th>Source_Type</th>");
+		pw.print("<th>Destination_Type</th>");
+		pw.print("<th>Txn_Amount</th>");
+		pw.print("</tr>");
+		for(TransactionDto txns : txn) {
+			pw.print("<tr>");
+			pw.print("<td>"+txns.getTxnId()+"</td>");
+			pw.print("<td>"+txns.getTxnDate()+"</td>");
+			pw.print("<td>"+txns.getSourceId()+"</td>");
+			pw.print("<td>"+txns.getDestinationId()+"</td>");
+			pw.print("<td>"+txns.getSourceType()+"</td>");
+			pw.print("<td>"+txns.getDestinationType()+"</td>");
+			pw.print("<td>"+txns.getTxnAmount()+"</td>");
+			pw.print("</tr>");
 		}
-		
+		pw.print("</table>");
+		int prevPage = page;
+		int nextPage = page;
+		pw.print("<a href='DisplayTransactions?page="+(prevPage==1?prevPage=3:prevPage-1)+"'><<</a>");
+		pw.print("<a>"+page+"</a>");
+		pw.print("<a href='DisplayTransactions?page="+(nextPage==3?nextPage=1:nextPage+1)+"'>>></a>");
+
+		pw.close();
 	}
 
 }

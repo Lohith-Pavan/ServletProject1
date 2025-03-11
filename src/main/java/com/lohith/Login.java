@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
 				hs.setAttribute("username", rs.getString(1));
 				hs.setAttribute("email", rs.getString(3));
 				hs.setAttribute("tel", rs.getInt(4));
-				RequestDispatcher rd = request.getRequestDispatcher("DisplayTransactions?page=1");
+				RequestDispatcher rd = request.getRequestDispatcher("Profile3.jsp?page=1");
 				rd.forward(request, response);
 			}
 			else {

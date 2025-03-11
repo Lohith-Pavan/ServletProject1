@@ -16,7 +16,7 @@ public class DisplayTransactions extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		String tpage = request.getParameter("page");
 		int page = Integer.parseInt(tpage);
-		int total = 10;
+		int total = 4;
 		List<TransactionDto> txn = TransactionDao.getTransactions(page, total);
 		pw.print("<table border = 1>");
 		pw.print("<tr>");
@@ -40,11 +40,14 @@ public class DisplayTransactions extends HttpServlet {
 			pw.print("</tr>");
 		}
 		pw.print("</table>");
+		int lastPage = (int)Math.ceil(TransactionDao.getTransactionsCount()*1.0/total);
 		int prevPage = page;
 		int nextPage = page;
-		pw.print("<a href='DisplayTransactions?page="+(prevPage==1?prevPage=3:prevPage-1)+"'><<</a>");
-		pw.print("<a>"+page+"</a>");
-		pw.print("<a href='DisplayTransactions?page="+(nextPage==3?nextPage=1:nextPage+1)+"'>>></a>");
+		pw.print("<a href='DisplayTransactions?page="+(prevPage==1?prevPage=lastPage:prevPage-1)+"'><<</a>");
+		for(int i=1;i<=lastPage;i++) {
+			pw.print("<a href='DisplayTransactions?page="+i+"'>"+i+"</a>");
+		}
+		pw.print("<a href='DisplayTransactions?page="+(nextPage==lastPage?nextPage=1:nextPage+1)+"'>>></a>");
 
 		pw.close();
 	}

@@ -40,4 +40,20 @@ public class TransactionDao {
 		}
     	 return txn;
      }
+     public static int getTransactionsCount() {
+    	 int count = 0;
+    	 Connection con = Dbcon.getCon();
+    	 String query = "select count(*) from transactions";
+    	 try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	 return count;
+     }
 }

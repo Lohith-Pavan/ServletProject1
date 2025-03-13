@@ -92,4 +92,14 @@
 		<servlet-name>DisplayTransactions</servlet-name>
 		<url-pattern>/DisplayTransactions</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>Transactions</display-name>
+		<servlet-name>Transactions</servlet-name>
+		<servlet-class>com.lohith.Transactions</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Transactions</servlet-name>
+		<url-pattern>/Transactions</url-pattern>
+	</servlet-mapping>
 </web-app>

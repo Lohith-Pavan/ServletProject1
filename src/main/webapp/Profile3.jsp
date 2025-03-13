@@ -74,6 +74,7 @@
 	<a href='Profile3.jsp?page=<%=i %>'><%=i%></a>
 	<%} %>
 	<a href='Profile3.jsp?page=<%=nextPage==lastPage?nextPage=1:nextPage+1 %>'>></a>
+	<a href='transaction.html'><button>go to previous page</button></a>
 	
 </body>
 </html>
